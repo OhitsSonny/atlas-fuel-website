@@ -656,10 +656,12 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
   background: var(--charcoal-900);
   overflow: hidden;
   isolation: isolate;
+  z-index: 0;
 }
 .hero__media {
   position: absolute; inset: 0;
   z-index: -1;
+  overflow: hidden;
 }
 .hero__media img {
   width: 100%; height: 100%;
@@ -681,6 +683,7 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
   z-index: 2;
   color: #fff;
   max-width: 920px;
+  will-change: transform, opacity;
 }
 .hero__content .eyebrow {
   color: var(--atlas-green-400);
@@ -744,9 +747,11 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
   align-items: flex-end;
   overflow: hidden;
   isolation: isolate;
+  z-index: 0;
 }
-.page-hero__media { position: absolute; inset: 0; z-index: -1; }
-.page-hero__media img { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.06) saturate(1.10) brightness(0.85); }
+.page-hero__content { will-change: transform, opacity; }
+.page-hero__media { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
+.page-hero__media img { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.06) saturate(1.10) brightness(0.85); will-change: transform; }
 .page-hero__media::after {
   content: ""; position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(15,17,21,0.50) 0%, rgba(15,17,21,0.20) 50%, rgba(15,17,21,0.80) 100%);
@@ -970,8 +975,8 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
   background: var(--charcoal-900);
   color: #fff;
 }
-.bleed__media { position: absolute; inset: 0; z-index: -1; }
-.bleed__media img { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.10) saturate(1.20) brightness(0.55); }
+.bleed__media { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
+.bleed__media img { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.10) saturate(1.20) brightness(0.55); will-change: transform; transform-origin: center; }
 .bleed__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,17,21,0.45), rgba(15,17,21,0.85)); }
 .bleed__media::before { content: ""; position: absolute; inset: 0; background: radial-gradient(80% 60% at 30% 70%, rgba(31,157,68,0.22), rgba(31,157,68,0) 65%); mix-blend-mode: overlay; }
 .bleed h2 { color: #fff; max-width: 720px; }
