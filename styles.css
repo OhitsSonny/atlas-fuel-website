@@ -1108,11 +1108,11 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
 }
 @media (min-width: 900px) { .bleed .metrics { grid-template-columns: repeat(3, 1fr); } }
 
-/* ----- Reveal animation on scroll ----- */
+/* ----- Reveal animation on scroll (MinRes-feel: gentle, calm, deliberate) ----- */
 .reveal {
   opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
+  transform: translateY(24px);
+  transition: opacity 900ms var(--ease-out), transform 900ms var(--ease-out);
   will-change: opacity, transform;
 }
 .reveal.in {
