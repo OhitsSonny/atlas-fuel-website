@@ -63,56 +63,5 @@
     updateHero();
   }
 
-  // 3. SUBTLE MOMENTUM SCROLL (wheel-input smoothing) -----------------------
-  // Wheel input on mac trackpad is already smooth; on mouse wheel it isn't.
-  // We lerp the scroll position for a gentler feel. Touch is untouched.
-  const lerpScroll = (() => {
-    let target = window.scrollY;
-    let current = window.scrollY;
-    let active = false;
-    let ticking = false;
-    const FACTOR = 0.18; // higher = snappier
-
-    function onWheel(e) {
-      // Skip if user is using a touch device or trackpad with small deltas
-      if (e.deltaMode !== 0) return; // pixel mode only
-      if (Math.abs(e.deltaY) < 4) return;
-      // Don't hijack inside scrollable subtrees
-      let t = e.target;
-      while (t && t !== document.body) {
-        const style = getComputedStyle(t);
-        if ((style.overflowY === 'auto' || style.overflowY === 'scroll') && t.scrollHeight > t.clientHeight) return;
-        t = t.parentElement;
-      }
-      e.preventDefault();
-      target = Math.max(0, Math.min(document.documentElement.scrollHeight - window.innerHeight, target + e.deltaY));
-      active = true;
-      if (!ticking) tick();
-    }
-
-    function tick() {
-      ticking = true;
-      current += (target - current) * FACTOR;
-      if (Math.abs(target - current) < 0.5) {
-        current = target;
-        ticking = false;
-        active = false;
-        window.scrollTo(0, current);
-        return;
-      }
-      window.scrollTo(0, current);
-      requestAnimationFrame(tick);
-    }
-
-    // Sync target when user scrolls another way (touch, scrollbar, keyboard)
-    window.addEventListener('scroll', () => {
-      if (!active) { target = window.scrollY; current = window.scrollY; }
-    }, { passive: true });
-
-    return { attach() { window.addEventListener('wheel', onWheel, { passive: false }); } };
-  })();
-  // Only enable lerp on devices that look like they have a mouse (coarse miss → fine pointer present)
-  if (window.matchMedia && window.matchMedia('(pointer: fine)').matches) {
-    lerpScroll.attach();
-  }
+  // (Wheel-input momentum smoothing removed — native scroll is the most accessible UX.)
 })();
