@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://atlas-fuel-website-lac.vercel.app/sitemap.xml

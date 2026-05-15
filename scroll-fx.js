@@ -50,6 +50,22 @@
     update();
   }
 
+  // 4. BACK-TO-TOP BUTTON ---------------------------------------------------
+  // A small floating button that appears after scrolling past the hero
+  const btt = document.createElement('button');
+  btt.className = 'back-to-top';
+  btt.setAttribute('aria-label', 'Scroll back to top');
+  btt.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 13V3M3 8l5-5 5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  document.body.appendChild(btt);
+  let bttRaf = 0;
+  function updateBtt() {
+    bttRaf = 0;
+    btt.classList.toggle('visible', window.scrollY > 600);
+  }
+  window.addEventListener('scroll', () => { if (!bttRaf) bttRaf = requestAnimationFrame(updateBtt); }, { passive: true });
+  updateBtt();
+
   // 3. HERO COPY GENTLE FADE ------------------------------------------------
   const heroContent = document.querySelector('.hero__content, .page-hero__content');
   if (heroContent) {

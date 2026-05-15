@@ -1120,6 +1120,35 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
   transform: translateY(0);
 }
 
+/* ----- Back to top button ----- */
+.back-to-top {
+  position: fixed;
+  right: clamp(20px, 3vw, 36px);
+  bottom: clamp(20px, 3vw, 36px);
+  z-index: 40;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--atlas-green-500);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px -8px rgba(31,157,68,0.5), 0 2px 6px rgba(15,17,21,0.18);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 280ms var(--ease-out), transform 280ms var(--ease-out), visibility 0s 280ms, background-color 200ms var(--ease-out);
+}
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity 280ms var(--ease-out), transform 280ms var(--ease-out), visibility 0s, background-color 200ms var(--ease-out);
+}
+.back-to-top:hover { background: var(--atlas-green-600); transform: translateY(-2px); }
+.back-to-top:focus-visible { outline: 2px solid var(--atlas-green-300); outline-offset: 3px; }
+
 /* ----- Misc ----- */
 .kicker-rule {
   display: inline-block;
