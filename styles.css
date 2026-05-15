@@ -778,23 +778,7 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
   margin: 0 0 36px 0;
 }
 .hero__ctas { display: flex; flex-wrap: wrap; gap: 14px; }
-.hero__scroll {
-  position: absolute;
-  bottom: 32px; left: 50%; transform: translateX(-50%);
-  z-index: 2;
-  display: none;
-  font-family: var(--display);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.6);
-}
-@media (min-width: 900px) { .hero__scroll { display: block; } }
-.hero__scroll::after {
-  content: ""; display: block; width: 1px; height: 36px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0));
-  margin: 12px auto 0;
-}
+.hero__scroll { display: none; }
 
 /* Hero floating certifications card (Bechtel-style featured panel — certs only) */
 .hero__certs {
