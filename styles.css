@@ -752,10 +752,11 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
 }
 .hero h1 {
   color: #fff;
-  font-size: clamp(42px, 6.6vw, 84px);
-  letter-spacing: -0.032em;
-  line-height: 1.02;
-  margin-bottom: 24px;
+  font-size: clamp(48px, 7.6vw, 96px);
+  letter-spacing: -0.038em;
+  line-height: 0.98;
+  margin-bottom: 28px;
+  font-weight: 800;
 }
 .hero h1 em {
   font-style: normal;
@@ -763,6 +764,11 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+.hero h1 .hero__h1-accent {
+  color: var(--atlas-green-400);
+  position: relative;
+  display: inline-block;
 }
 .hero__sub {
   font-size: clamp(17px, 1.4vw, 20px);
