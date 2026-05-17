@@ -1427,13 +1427,23 @@ main { padding-top: 0; }
    MinRes-inspired premium components (originals, not lifted)
    ============================================================= */
 
-/* 1. Hero per-line text reveal mask -------------------------- */
-.hero h1 .line { display: block; overflow: hidden; }
-.hero h1 .line__inner { display: inline-block; transform: translateY(100%); will-change: transform; }
-.hero h1 .line__inner.in { transform: translateY(0); transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1); }
-.hero h1 .line:nth-child(1) .line__inner.in { transition-delay: 0.15s; }
-.hero h1 .line:nth-child(2) .line__inner.in { transition-delay: 0.30s; }
-.hero h1 .line:nth-child(3) .line__inner.in { transition-delay: 0.45s; }
+/* 1. Hero per-line text reveal mask (pure CSS, no JS dependency) */
+.hero h1 .line { display: block; overflow: hidden; padding-bottom: 0.06em; }
+.hero h1 .line__inner {
+  display: inline-block;
+  will-change: transform;
+  animation: heroLineIn 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero h1 .line:nth-child(1) .line__inner { animation-delay: 0.20s; }
+.hero h1 .line:nth-child(2) .line__inner { animation-delay: 0.36s; }
+.hero h1 .line:nth-child(3) .line__inner { animation-delay: 0.52s; }
+@keyframes heroLineIn {
+  from { transform: translateY(105%); }
+  to   { transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero h1 .line__inner { animation: none; transform: translateY(0); }
+}
 
 /* 2. Accordion (FAQ / disclosure) ---------------------------- */
 .accordion { border-top: 1px solid var(--hairline); }

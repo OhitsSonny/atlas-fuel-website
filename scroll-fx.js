@@ -389,4 +389,12 @@
   } else {
     initAccordion(); initChips(); initCtaPill();
   }
+
+  // SAFETY FALLBACK: ensure every .reveal element becomes visible -----------
+  // If GSAP/Lenis fail to load (CDN down, network blocked, etc.), elements
+  // tagged .reveal would otherwise stay at opacity:0 forever. After 3.5s,
+  // forcibly add .in to anything still hidden so the page is never broken.
+  setTimeout(() => {
+    document.querySelectorAll('.reveal:not(.in)').forEach((el) => el.classList.add('in'));
+  }, 3500);
 })();
