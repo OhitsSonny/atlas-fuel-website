@@ -86,46 +86,50 @@
       });
     });
 
-    // ----- HERO: image scale + content drift+fade on scrub -----------------
+    // ----- HERO: PINNED FULLSCREEN TIMELINE --------------------------------
+    // Pin the hero for the first 85% of viewport of scroll. Within that pin,
+    // a single scrubbed timeline layers: image scale + drift, dark veil
+    // intensify, foreground content drift + fade. Released cleanly into
+    // the next section with no abrupt jump.
     const hero = document.querySelector('.hero');
     if (hero) {
       const heroImg = hero.querySelector('.hero__media img');
+      const heroMedia = hero.querySelector('.hero__media');
       const heroContent = hero.querySelector('.hero__content');
 
-      if (heroImg) {
-        gsap.set(heroImg, { scale: 1.06, transformOrigin: '50% 60%' });
-        gsap.to(heroImg, {
-          scale: 1.20,
-          y: () => hero.offsetHeight * 0.22,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: hero,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: 0.6,
-            invalidateOnRefresh: true,
-          }
-        });
+      // Inject a veil layer for darkening on scrub (so we don't fight the
+      // existing pseudo-element gradient)
+      let heroVeil = hero.querySelector('.hero__veil');
+      if (!heroVeil && heroMedia) {
+        heroVeil = document.createElement('span');
+        heroVeil.className = 'hero__veil';
+        heroMedia.appendChild(heroVeil);
       }
-      if (heroContent) {
-        gsap.to(heroContent, {
-          y: -110,
-          opacity: 0,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: hero,
-            start: 'top top',
-            end: '70% top',
-            scrub: 0.6,
-          }
-        });
-      }
+
+      if (heroImg) gsap.set(heroImg, { scale: 1.06, transformOrigin: '50% 55%', force3D: true });
+      if (heroVeil) gsap.set(heroVeil, { opacity: 0 });
+
+      const heroTL = gsap.timeline({
+        scrollTrigger: {
+          trigger: hero,
+          start: 'top top',
+          end: '+=90%',
+          scrub: 0.8,
+          pin: true,
+          pinSpacing: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        }
+      });
+      if (heroImg)     heroTL.to(heroImg,    { scale: 1.32, yPercent: 12, ease: 'none' }, 0);
+      if (heroVeil)    heroTL.to(heroVeil,   { opacity: 0.55, ease: 'none' },                0);
+      if (heroContent) heroTL.to(heroContent,{ yPercent: -45, opacity: 0, ease: 'none' },    0);
 
       // HERO entrance: stagger reveal of children on load
       const kids = heroContent ? heroContent.querySelectorAll(':scope > *') : [];
       if (kids.length) {
         gsap.from(kids, {
-          y: 70, opacity: 0, duration: 1.1, stagger: 0.10,
+          y: 70, opacity: 0, duration: 1.2, stagger: 0.10,
           ease: 'expo.out', delay: 0.25, clearProps: 'transform',
         });
       }
@@ -154,19 +158,41 @@
       }
     });
 
-    // ----- FULL-BLEED SECTIONS: image parallax-scale through viewport ------
-    document.querySelectorAll('.bleed').forEach((bleed) => {
+    // ----- FULL-BLEED SECTIONS: timeline-driven scale + drift on scrub -----
+    // First bleed on each page (typically the most impactful — drone metrics
+    // band) gets a brief pin while its image expands; subsequent bleeds use
+    // unpinned scrub for performance.
+    const bleeds = Array.from(document.querySelectorAll('.bleed'));
+    bleeds.forEach((bleed, idx) => {
       const img = bleed.querySelector('.bleed__media img');
+      const inner = bleed.querySelector(':scope > .container');
       if (!img) return;
-      gsap.set(img, { scale: 1.15, transformOrigin: '50% 50%' });
-      gsap.fromTo(img,
-        { yPercent: -8 },
-        {
-          yPercent: 8, ease: 'none',
-          scrollTrigger: {
-            trigger: bleed, start: 'top bottom', end: 'bottom top', scrub: 0.8, invalidateOnRefresh: true,
-          }
-        });
+      gsap.set(img, { scale: 1.18, transformOrigin: '50% 50%', force3D: true });
+
+      const isHero = idx === 0 && window.innerWidth > 900;
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: bleed,
+          start: isHero ? 'top top' : 'top bottom',
+          end:   isHero ? '+=70%'  : 'bottom top',
+          scrub: 0.9,
+          pin:   isHero,
+          pinSpacing: isHero,
+          anticipatePin: isHero ? 1 : 0,
+          invalidateOnRefresh: true,
+        }
+      });
+      tl.fromTo(img,
+        { yPercent: isHero ? 0  : -10, scale: 1.18 },
+        { yPercent: isHero ? -8 :  10, scale: isHero ? 1.40 : 1.30, ease: 'none' }
+      );
+      if (isHero && inner) {
+        tl.fromTo(inner,
+          { yPercent: 0, opacity: 1 },
+          { yPercent: -8, opacity: 0.92, ease: 'none' },
+          0
+        );
+      }
       // Content inside bleed: rises in as section approaches viewport center
       const inner = bleed.querySelector(':scope > .container');
       if (inner) {

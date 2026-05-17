@@ -1427,6 +1427,17 @@ main { padding-top: 0; }
    MinRes-inspired premium components (originals, not lifted)
    ============================================================= */
 
+/* Hero veil — JS-driven darkening layer during pinned scrub */
+.hero__media .hero__veil {
+  position: absolute;
+  inset: 0;
+  background: #0F1115;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+  will-change: opacity;
+}
+
 /* 1. Hero per-line text reveal mask (pure CSS, no JS dependency) */
 .hero h1 .line { display: block; overflow: hidden; padding-bottom: 0.06em; }
 .hero h1 .line__inner {
