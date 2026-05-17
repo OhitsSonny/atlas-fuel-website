@@ -21,7 +21,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
-<link rel="stylesheet" href="styles.css?v=14" />
+<link rel="stylesheet" href="styles.css?v=15" />
 </head>
 <body>
 <a href="#main" class="skip" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip</a>
@@ -145,6 +145,42 @@
   </div>
 </section>
 
+<!-- ACCORDION FAQ -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-head__top"><span class="eyebrow">Frequently Asked</span><span class="section-head__rule"></span></div>
+      <h2>How we run a responsible operation.</h2>
+    </div>
+    <div class="accordion" style="max-width: 880px; margin: 0 auto;">
+      <div class="accordion__item">
+        <button class="accordion__trigger">What ISO certifications does Atlas Fuel hold, and who audits them?</button>
+        <div class="accordion__panel"><div class="accordion__panel-inner"><p>Atlas Fuel maintains three current ISO certifications — ISO 9001:2015 (Quality), ISO 14001:2015 (Environmental), and ISO 45001:2018 (Occupational Health &amp; Safety) — independently audited by Compass Assurance Services. Atlas also holds WA Heavy Vehicle Accreditation under Main Roads WA across fatigue, mass, maintenance and dimension modules. Certificates are available on request.</p></div></div>
+      </div>
+      <div class="accordion__item">
+        <button class="accordion__trigger">How does Atlas Fuel manage spill prevention and response?</button>
+        <div class="accordion__panel"><div class="accordion__panel-inner"><p>Spill-response equipment is carried on every long-haul rig and at every depot, with documented procedures aligned to ISO 14001. Drivers complete spill-response training during induction and annual refreshers. Each transfer is preceded by a documented site check, and incidents — whether spills, near-misses or environmental observations — are reported into the HSEQ system within 24 hours.</p></div></div>
+      </div>
+      <div class="accordion__item">
+        <button class="accordion__trigger">How is the fleet's emissions footprint tracked and reduced?</button>
+        <div class="accordion__panel"><div class="accordion__panel-inner"><p>Every Atlas Fuel asset reports telemetry — engine hours, idle time, fuel burn and load factor. We run a quarterly emissions and intensity review with our operations team, set route-optimisation targets, and coach drivers on fuel-efficient operation. Quarterly improvements are reported to customers operating under shared-decarbonisation contracts.</p></div></div>
+      </div>
+      <div class="accordion__item">
+        <button class="accordion__trigger">What's Atlas Fuel's approach to driver fatigue management?</button>
+        <div class="accordion__panel"><div class="accordion__panel-inner"><p>Atlas operates under WA Heavy Vehicle Accreditation's Fatigue Management module. Driving hours, rest breaks and roster limits are tracked through compliant electronic work diaries. Dispatch routing avoids exceeding standard hours wherever possible; advanced fatigue management options are deployed on long-haul corridors only with appropriate accreditation and driver consent.</p></div></div>
+      </div>
+      <div class="accordion__item">
+        <button class="accordion__trigger">How does Atlas Fuel work with the communities it operates in?</button>
+        <div class="accordion__panel"><div class="accordion__panel-inner"><p>Atlas is headquartered in Kwinana on Whadjuk Noongar Country, and we acknowledge the Traditional Custodians of every location we operate on. We give local supplier preference where commercially viable, run apprentice and traineeship pathways in regional WA, and partner with community organisations in the regions our fleet passes through. Our approach is to be a long-term, predictable, employer of choice in the towns we depend on.</p></div></div>
+      </div>
+      <div class="accordion__item">
+        <button class="accordion__trigger">Where can I request a Statement of Compliance or audit pack?</button>
+        <div class="accordion__panel"><div class="accordion__panel-inner"><p>Contact our HSEQ team via <a href="contact.html">contact.html</a> or email info@atlasfuel.com.au. Audit packs typically include current ISO and WA HVA certificates, our HSEQ policy, sample SWMS documentation, and an insurance certificate of currency. Most prequal requests are returned within two business days.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- COMMUNITY -->
 <section class="section section--bone">
   <div class="container">
@@ -197,7 +233,7 @@
   </div>
 </footer>
 
-<script src="scroll-fx.js?v=14" defer></script>
+<script src="scroll-fx.js?v=15" defer></script>
 <script>
   (function(){const h=document.getElementById('header');let r=null;function u(){r=null;if(window.scrollY>80)h.classList.add('scrolled');else h.classList.remove('scrolled');}window.addEventListener('scroll',()=>{if(!r)r=requestAnimationFrame(u);},{passive:true});u();})();
   (function(){const b=document.getElementById('burger'),d=document.getElementById('drawer'),c=document.getElementById('drawer-close');function o(){d.classList.add('open');d.setAttribute('aria-hidden','false');b.setAttribute('aria-expanded','true');document.body.classList.add('no-scroll');}function s(){d.classList.remove('open');d.setAttribute('aria-hidden','true');b.setAttribute('aria-expanded','false');document.body.classList.remove('no-scroll');}b.addEventListener('click',o);c.addEventListener('click',s);d.querySelectorAll('a').forEach(a=>a.addEventListener('click',s));document.querySelectorAll('.acc-toggle').forEach(bt=>bt.addEventListener('click',()=>{const e=bt.getAttribute('aria-expanded')==='true';bt.setAttribute('aria-expanded',String(!e));bt.classList.toggle('open');bt.querySelector('span').textContent=e?'+':'−';}));document.addEventListener('keydown',e=>{if(e.key==='Escape')s();});})();

@@ -275,10 +275,118 @@
       });
     }
 
+    // ----- HERO PER-LINE TEXT REVEAL (masked) ------------------------------
+    document.querySelectorAll('.hero h1 .line__inner').forEach((el) => {
+      requestAnimationFrame(() => el.classList.add('in'));
+    });
+
     // ----- Refresh after fonts and any late images load --------------------
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(() => ScrollTrigger.refresh());
     }
     window.addEventListener('load', () => ScrollTrigger.refresh());
+  }
+
+  // ===========================================================================
+  // STANDALONE COMPONENTS (work whether or not GSAP/Lenis loaded)
+  // ===========================================================================
+
+  // ACCORDION ----------------------------------------------------------------
+  function initAccordion() {
+    document.querySelectorAll('.accordion').forEach((acc) => {
+      acc.querySelectorAll('.accordion__item').forEach((item) => {
+        const trigger = item.querySelector('.accordion__trigger');
+        const panel = item.querySelector('.accordion__panel');
+        if (!trigger || !panel) return;
+        trigger.addEventListener('click', () => {
+          const isOpen = item.classList.contains('open');
+          // Close siblings in same accordion (single-open behaviour)
+          acc.querySelectorAll('.accordion__item.open').forEach((other) => {
+            if (other !== item) {
+              other.classList.remove('open');
+              const p = other.querySelector('.accordion__panel');
+              if (p) p.style.maxHeight = '0px';
+            }
+          });
+          if (isOpen) {
+            item.classList.remove('open');
+            panel.style.maxHeight = '0px';
+          } else {
+            item.classList.add('open');
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+          }
+          if (window.ScrollTrigger) setTimeout(() => window.ScrollTrigger.refresh(), 480);
+        });
+      });
+    });
+  }
+
+  // CHIP FILTER (store-locator stations, news categories) --------------------
+  function initChips() {
+    document.querySelectorAll('[data-station-filter]').forEach((bar) => {
+      const targetList = document.querySelector('[data-station-list]');
+      if (!targetList) return;
+      const items = targetList.querySelectorAll('[data-region]');
+      bar.querySelectorAll('.chip').forEach((chip) => {
+        chip.addEventListener('click', () => {
+          const region = chip.dataset.region;
+          bar.querySelectorAll('.chip').forEach((c) => c.classList.remove('active'));
+          chip.classList.add('active');
+          items.forEach((item) => {
+            const match = region === 'all' || item.dataset.region === region;
+            item.classList.toggle('hidden', !match);
+          });
+          if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+        });
+      });
+    });
+  }
+
+  // STICKY BOTTOM CTA PILL ---------------------------------------------------
+  function initCtaPill() {
+    // Don't show on contact (user is already there) or on 404
+    const path = location.pathname;
+    if (path.endsWith('/contact.html') || path.endsWith('/404.html')) return;
+    // Don't show if user already dismissed it this session
+    if (sessionStorage.getItem('atlas-cta-dismissed') === '1') return;
+
+    const isInner = path.includes('/what-we-do/');
+    const contactHref = isInner ? '../contact.html' : 'contact.html';
+
+    const pill = document.createElement('div');
+    pill.className = 'cta-pill';
+    pill.innerHTML = `
+      <span class="cta-pill__icon" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M3 10a7 7 0 1014 0 7 7 0 00-14 0zm7-4v4l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </span>
+      <a href="${contactHref}" style="color:#fff;">Talk to dispatch · 24/7</a>
+      <button class="cta-pill__close" aria-label="Dismiss">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3L3 9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      </button>
+    `;
+    document.body.appendChild(pill);
+    pill.querySelector('.cta-pill__close').addEventListener('click', () => {
+      pill.classList.remove('visible');
+      sessionStorage.setItem('atlas-cta-dismissed', '1');
+    });
+
+    // Show after user has scrolled past hero AND after a short delay
+    let shown = false;
+    function maybeShow() {
+      if (shown) return;
+      if (window.scrollY > Math.min(window.innerHeight * 0.7, 600)) {
+        shown = true;
+        setTimeout(() => pill.classList.add('visible'), 240);
+        window.removeEventListener('scroll', maybeShow);
+      }
+    }
+    window.addEventListener('scroll', maybeShow, { passive: true });
+  }
+
+  // Wire all standalone components now (don't wait for GSAP) -----------------
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => { initAccordion(); initChips(); initCtaPill(); });
+  } else {
+    initAccordion(); initChips(); initCtaPill();
   }
 })();

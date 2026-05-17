@@ -21,7 +21,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
-<link rel="stylesheet" href="styles.css?v=14" />
+<link rel="stylesheet" href="styles.css?v=15" />
 </head>
 <body>
 <a href="#main" class="skip" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip</a>
@@ -84,47 +84,54 @@
 <!-- STATIONS -->
 <section class="section" style="padding-top: 24px;">
   <div class="container">
-    <div class="section-head" style="margin-bottom: 36px;">
+    <div class="section-head" style="margin-bottom: 24px;">
       <div class="section-head__top"><span class="eyebrow">Atlas Stations</span><span class="section-head__rule"></span></div>
       <h2 style="font-size: clamp(28px, 3.4vw, 40px);">Six locations across WA &amp; the regions.</h2>
     </div>
-    <div class="grid grid-3" style="gap: 18px;">
-      <article class="station reveal">
+    <div class="chipbar" role="tablist" aria-label="Filter by region" data-station-filter>
+      <button class="chip active" data-region="all">All regions</button>
+      <button class="chip" data-region="metro">Perth Metro</button>
+      <button class="chip" data-region="goldfields">Goldfields</button>
+      <button class="chip" data-region="midwest">Mid West</button>
+      <button class="chip" data-region="pilbara">Pilbara</button>
+    </div>
+    <div class="grid grid-3" style="gap: 18px;" data-station-list>
+      <article class="station reveal" data-region="metro">
         <span class="station__state">WA · South West Metro</span>
         <h4>Atlas Fuel Kwinana Beach</h4>
         <p class="station__addr">1 Mandurah Rd, Kwinana Beach WA 6167</p>
         <p class="station__hours">Open · 24 hours</p>
         <div style="display: flex; gap: 6px; flex-wrap: wrap;"><span class="station__chip">Diesel</span><span class="station__chip">Unleaded</span><span class="station__chip">Truck access</span></div>
       </article>
-      <article class="station reveal">
+      <article class="station reveal" data-region="metro">
         <span class="station__state">WA · East Metro</span>
         <h4>Atlas Fuel Welshpool</h4>
         <p class="station__addr">Welshpool Rd, Welshpool WA 6106</p>
         <p class="station__hours">Mon–Sun · 05:00–22:00</p>
         <div style="display: flex; gap: 6px; flex-wrap: wrap;"><span class="station__chip">Diesel</span><span class="station__chip">Premium</span><span class="station__chip">AdBlue</span></div>
       </article>
-      <article class="station reveal">
+      <article class="station reveal" data-region="goldfields">
         <span class="station__state">WA · Goldfields</span>
         <h4>Atlas Fuel Kalgoorlie</h4>
         <p class="station__addr">Great Eastern Hwy, Kalgoorlie WA 6430</p>
         <p class="station__hours">Open · 24 hours</p>
         <div style="display: flex; gap: 6px; flex-wrap: wrap;"><span class="station__chip">Diesel</span><span class="station__chip">Bulk</span><span class="station__chip">Truck access</span></div>
       </article>
-      <article class="station reveal">
+      <article class="station reveal" data-region="midwest">
         <span class="station__state">WA · Mid West</span>
         <h4>Atlas Fuel Geraldton</h4>
         <p class="station__addr">North West Coastal Hwy, Geraldton WA 6530</p>
         <p class="station__hours">Mon–Sun · 04:00–23:00</p>
         <div style="display: flex; gap: 6px; flex-wrap: wrap;"><span class="station__chip">Diesel</span><span class="station__chip">Unleaded</span><span class="station__chip">AdBlue</span></div>
       </article>
-      <article class="station reveal">
+      <article class="station reveal" data-region="pilbara">
         <span class="station__state">WA · Pilbara</span>
         <h4>Atlas Fuel Karratha</h4>
         <p class="station__addr">Bayly Pl, Karratha WA 6714</p>
         <p class="station__hours">Open · 24 hours</p>
         <div style="display: flex; gap: 6px; flex-wrap: wrap;"><span class="station__chip">Diesel</span><span class="station__chip">Bulk</span><span class="station__chip">Truck access</span></div>
       </article>
-      <article class="station reveal">
+      <article class="station reveal" data-region="pilbara">
         <span class="station__state">WA · Pilbara</span>
         <h4>Atlas Fuel Port Hedland</h4>
         <p class="station__addr">Wedgefield Rd, Port Hedland WA 6721</p>
@@ -169,7 +176,7 @@
   </div>
 </footer>
 
-<script src="scroll-fx.js?v=14" defer></script>
+<script src="scroll-fx.js?v=15" defer></script>
 <script>
   (function(){const h=document.getElementById('header');let r=null;function u(){r=null;if(window.scrollY>80)h.classList.add('scrolled');else h.classList.remove('scrolled');}window.addEventListener('scroll',()=>{if(!r)r=requestAnimationFrame(u);},{passive:true});u();})();
   (function(){const b=document.getElementById('burger'),d=document.getElementById('drawer'),c=document.getElementById('drawer-close');function o(){d.classList.add('open');d.setAttribute('aria-hidden','false');b.setAttribute('aria-expanded','true');document.body.classList.add('no-scroll');}function s(){d.classList.remove('open');d.setAttribute('aria-hidden','true');b.setAttribute('aria-expanded','false');document.body.classList.remove('no-scroll');}b.addEventListener('click',o);c.addEventListener('click',s);d.querySelectorAll('a').forEach(a=>a.addEventListener('click',s));document.querySelectorAll('.acc-toggle').forEach(bt=>bt.addEventListener('click',()=>{const e=bt.getAttribute('aria-expanded')==='true';bt.setAttribute('aria-expanded',String(!e));bt.classList.toggle('open');bt.querySelector('span').textContent=e?'+':'−';}));document.addEventListener('keydown',e=>{if(e.key==='Escape')s();});})();

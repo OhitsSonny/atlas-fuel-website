@@ -21,7 +21,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
-<link rel="stylesheet" href="styles.css?v=14" />
+<link rel="stylesheet" href="styles.css?v=15" />
 </head>
 <body>
 <a href="#main" class="skip" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to content</a>
@@ -163,7 +163,11 @@
   </div>
   <div class="container hero__content">
     <span class="eyebrow">Atlas Fuel Australia · Founded 2010 · Kwinana WA</span>
-    <h1>Unrivalled.<br/>Unmatched.<br/><span class="hero__h1-accent">Unstoppable.</span></h1>
+    <h1>
+      <span class="line"><span class="line__inner">Unrivalled.</span></span>
+      <span class="line"><span class="line__inner">Unmatched.</span></span>
+      <span class="line"><span class="line__inner hero__h1-accent">Unstoppable.</span></span>
+    </h1>
     <p class="hero__sub">Australia's bulk fuel and logistics partner — supplying mining, marine, agriculture, transport and retail from the Pilbara to the Port of Fremantle. Accredited, 24/7 dispatched, nationally trusted.</p>
     <div class="hero__ctas">
       <a class="btn btn--primary" href="what-we-do.html">
@@ -239,7 +243,7 @@
       <h2>One partner. Eleven service lines. National reach.</h2>
     </div>
 
-    <div class="grid grid-3" style="gap: 18px;">
+    <div class="stacked-grid">
       <a class="scard reveal" href="what-we-do/mining-and-civil.html">
         <img src="brand_assets/What%20we%20do%20%20-%20Mining%20and%20civil%20.jpg" alt="Mining and civil site refuelling" loading="lazy" />
         <div class="scard__body">
@@ -698,7 +702,7 @@
   </div>
 </footer>
 
-<script src="scroll-fx.js?v=14" defer></script>
+<script src="scroll-fx.js?v=15" defer></script>
 <script>
   // Sticky nav scroll shrink
   (function () {
